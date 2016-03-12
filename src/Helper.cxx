@@ -12,7 +12,7 @@
 
 namespace fsscan
 {
-
+  //------------------------------------------------------------------------
   void log(std::string p_Log)
   {
     time_t t_RawTime;
@@ -21,17 +21,17 @@ namespace fsscan
     std::cout << t_RawTime << " - " << p_Log << std::endl;
     std::cout.flush();
   }
-
+  //------------------------------------------------------------------------
   std::string getFileExtension(std::string p_FileName)
   {
     return p_FileName.substr(p_FileName.find_last_of(".") + 1);
   }
-
+  //------------------------------------------------------------------------
   bool fileCompare(File t_A, File t_B)
   {
     return t_A.GetSize() > t_B.GetSize();
   }
-
+  //------------------------------------------------------------------------
   int MAX(int x, int y)
   {
     if ((x) > (y))
@@ -39,7 +39,7 @@ namespace fsscan
     else
       return y;
   }
-
+  //------------------------------------------------------------------------
   unsigned long compute_hash(std::ifstream& f)
   {
     unsigned long hash, fsize;
@@ -57,5 +57,4 @@ namespace fsscan
 
     return hash;
   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Errors.cxx
+ * BaseClass.cxx
  *
  *  Created on: 2011.11.12.
  *      Author: gergely.nyiri@gmail.com

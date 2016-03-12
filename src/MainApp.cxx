@@ -13,7 +13,7 @@
 
 namespace fsscan
 {
-
+//------------------------------------------------------------------------
 MainApp::MainApp(std::string p_Root) :
         m_Root(p_Root)
 {
@@ -21,12 +21,12 @@ MainApp::MainApp(std::string p_Root) :
 
   Init(); 
 }
-
+//------------------------------------------------------------------------
 MainApp::~MainApp()
 {
   Log("MainApp DTOR");
 }
-
+//------------------------------------------------------------------------
 void MainApp::Init()
 {
   Log("MainApp Init");
@@ -38,7 +38,7 @@ void MainApp::Init()
   m_Extensions.clear();
   m_Files.clear();
 }
-
+//------------------------------------------------------------------------
 int MainApp::Update()
 {
   Log("MainApp Update");
@@ -106,7 +106,7 @@ int MainApp::Update()
 
   return 1;
 }
-/* @todo hekk */
+//------------------------------------------------------------------------
 void MainApp::Dump()
 {
   std::ofstream t_F;

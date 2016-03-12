@@ -11,14 +11,14 @@ namespace fsscan
 {
 
 Logger* Logger::m_Instance = 0;
-
+//------------------------------------------------------------------------
 Logger::Logger()
 {
   m_Instance = 0;
 
   OpenFile("fs-scan.log");
 }
-
+//------------------------------------------------------------------------
 Logger* Logger::GetInstance()
 {
   if(!m_Instance)
@@ -28,7 +28,7 @@ Logger* Logger::GetInstance()
 
   return m_Instance;
 }
-
+//------------------------------------------------------------------------
 int Logger::OpenFile(std::string p_FileName)
 {
   m_LogFile.open(p_FileName.c_str());
@@ -40,7 +40,7 @@ int Logger::OpenFile(std::string p_FileName)
 
   return 1;
 }
-
+//------------------------------------------------------------------------
 void Logger::Print(std::string p_Msg)
 {
   time_t t_RawTime;
