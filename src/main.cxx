@@ -16,10 +16,10 @@ int main(int argc, char** argv)
     return -1;
   }
 
-  fsscan::MainApp t_App(argv[1]);
+  fsscan::MainApp l_app(argv[1]);
 
-  t_App.Update();
-  t_App.Dump();
+  l_app.Update();
+  l_app.Dump();
 
   return 0;
 }

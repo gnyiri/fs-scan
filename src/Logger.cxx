@@ -43,11 +43,11 @@ namespace fsscan
 //------------------------------------------------------------------------
   void Logger::Print(std::string p_Msg)
   {
-    time_t t_RawTime;
-    time(&t_RawTime);
+    time_t l_raw_time;
+    time(&l_raw_time);
 
-    m_LogFile << t_RawTime << " - " << p_Msg << std::endl;
-    std::cout << t_RawTime << " - " << p_Msg << std::endl;
+    m_LogFile << l_raw_time << " - " << p_Msg << std::endl;
+    std::cout << l_raw_time << " - " << p_Msg << std::endl;
   }
 
 } /* namespace dirscan */

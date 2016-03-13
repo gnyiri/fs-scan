@@ -16,8 +16,8 @@ add_subdirectory(src)
 
 if(BUILD_TESTING)
   add_subdirectory(testing)
-  endif(BUILD_TESTING)
+endif(BUILD_TESTING)
 
-  add_executable(fs-scan src/main.cxx)
+add_executable(fs-scan src/main.cxx)
 
-  target_link_libraries(fs-scan fsscan_main)
+target_link_libraries(fs-scan fsscan_main)

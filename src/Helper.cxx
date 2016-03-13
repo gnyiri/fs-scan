@@ -15,10 +15,10 @@ namespace fsscan
   //------------------------------------------------------------------------
   void log(std::string p_Log)
   {
-    time_t t_RawTime;
-    time(&t_RawTime);
+    time_t t_raw_time;
+    time(&t_raw_time);
 
-    std::cout << t_RawTime << " - " << p_Log << std::endl;
+    std::cout << t_raw_time << " - " << p_Log << std::endl;
     std::cout.flush();
   }
   //------------------------------------------------------------------------
@@ -27,19 +27,9 @@ namespace fsscan
     return p_FileName.substr(p_FileName.find_last_of(".") + 1);
   }
   //------------------------------------------------------------------------
-  bool fileCompare(File t_A, File t_B)
+  bool fileCompare(File& p_a, File& p_b)
   {
-    return t_A.GetSize() > t_B.GetSize();
-  }
-  //------------------------------------------------------------------------
-  int MAX(int x, int y)
-  {
-    if((x) > (y)) {
-      return x;
-    }
-    else {
-      return y;
-    }
+    return p_a.GetSize() > p_b.GetSize();
   }
   //------------------------------------------------------------------------
   unsigned long compute_hash(std::ifstream &f)
@@ -53,7 +43,7 @@ namespace fsscan
     hash = fsize;
     for(unsigned long tmp = 0, i = 0; i < 65536 / sizeof(tmp) && f.read((char*) &tmp, sizeof(tmp)); i++, hash += tmp);
 
-    f.seekg(MAX(0, (unsigned long) fsize - 65536), std::ios::beg);
+    f.seekg(std::max(0ul, (unsigned long) fsize - 65536), std::ios::beg);
 
     for(unsigned long tmp = 0, i = 0; i < 65536 / sizeof(tmp) && f.read((char*) &tmp, sizeof(tmp)); i++, hash += tmp);
 

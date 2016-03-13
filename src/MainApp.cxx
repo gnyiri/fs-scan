@@ -47,59 +47,59 @@ namespace fsscan
 
     char* paths[] = { const_cast<char*>(m_Root.c_str()), 0 };
 
-    FTS* t_FileTree = fts_open(paths, FTS_NOCHDIR, 0);
+    FTS* l_file_tree = fts_open(paths, FTS_NOCHDIR, 0);
 
-    if(!t_FileTree)
+    if(!l_file_tree)
     {
       return 0;
     }
 
-    FTSENT* t_Node;
+    FTSENT* l_node = 0;
 
-    while((t_Node = fts_read(t_FileTree)))
+    while((l_node = fts_read(l_file_tree)))
     {
-      if(t_Node->fts_level > 0 && t_Node->fts_name[0] == '.')
+      if(l_node->fts_level > 0 && l_node->fts_name[0] == '.')
       {
-        fts_set(t_FileTree, t_Node, FTS_SKIP);
+        fts_set(l_file_tree, l_node, FTS_SKIP);
       }
-      else if(t_Node->fts_info & FTS_F)
+      else if(l_node->fts_info & FTS_F)
       {
-        std::string t_Ext = getFileExtension(t_Node->fts_name);
+        std::string l_extension = getFileExtension(l_node->fts_name);
 
-        m_Counters["Size"] += t_Node->fts_statp->st_size;
+        m_Counters["Size"] += l_node->fts_statp->st_size;
         m_Counters["File"]++;
 
-        if(t_Ext.size() <= 4)
+        if(l_extension.size() <= 4)
         {
-          File t_File;
+          File l_file;
 
-          t_File.SetLevel(t_Node->fts_level);
-          t_File.SetPath(t_Node->fts_accpath);
-          t_File.SetSize(t_Node->fts_statp->st_size);
-          t_File.SetExtension(t_Ext);
+          l_file.SetLevel(l_node->fts_level);
+          l_file.SetPath(l_node->fts_accpath);
+          l_file.SetSize(l_node->fts_statp->st_size);
+          l_file.SetExtension(l_extension);
 
-          m_Files.push_back(t_File);
+          m_Files.push_back(l_file);
 
-          if(m_Extensions.find(t_Ext) == m_Extensions.end())
+          if(m_Extensions.find(l_extension) == m_Extensions.end())
           {
-            Log("New extension found: " + t_Ext);
-            m_Extensions[t_Ext].m_Count = 1;
-            m_Extensions[t_Ext].m_Size  = t_Node->fts_statp->st_size;
+            Log("New extension found: " + l_extension);
+            m_Extensions[l_extension].m_Count = 1;
+            m_Extensions[l_extension].m_Size  = l_node->fts_statp->st_size;
           }
           else
           {
-            m_Extensions[t_Ext].m_Count++;
-            m_Extensions[t_Ext].m_Size += t_Node->fts_statp->st_size;
+            m_Extensions[l_extension].m_Count++;
+            m_Extensions[l_extension].m_Size += l_node->fts_statp->st_size;
           }
         }
       }
       else
       {
-        Log("Scanning " + std::string(t_Node->fts_name));
+        Log("Scanning " + std::string(l_node->fts_name));
       }
     }
 
-    if(fts_close(t_FileTree))
+    if(fts_close(l_file_tree))
     {
       return 0;
     }
@@ -109,10 +109,10 @@ namespace fsscan
 //------------------------------------------------------------------------
   void MainApp::Dump()
   {
-    std::ofstream t_F;
-    t_F.open("ext_stat.csv");
+    std::ofstream l_file;
+    l_file.open("ext_stat.csv");
 
-    if(false == t_F.is_open())
+    if(false == l_file.is_open())
     {
       Log("Could not open ext_stat.csv");
       return;
@@ -126,35 +126,35 @@ namespace fsscan
     std::cout << "Number of files:         " << m_Counters["File"] << std::endl;
     std::cout << "Overall size in mbytes : " << m_Counters["Size"] / (1024.0 * 1024.0) << " (" << m_Counters["Size"] << " bytes)" << std::endl;
 
-    for(ExtensionMap::iterator t_It = m_Extensions.begin(); t_It != m_Extensions.end(); t_It++)
+    for(ExtensionMap::iterator l_it = m_Extensions.begin(); l_it != m_Extensions.end(); l_it++)
     {
-      t_F << t_It->first << "," << t_It->second.m_Count << "," << t_It->second.m_Size << std::endl;
+      l_file << l_it->first << "," << l_it->second.m_Count << "," << l_it->second.m_Size << std::endl;
     }
 
     std::cout << "Largest 10 files:        " << std::endl;
 
-    for(unsigned int t_I = 0; t_I < 10 && t_I < m_Files.size(); t_I++)
+    for(unsigned int l_i = 0; l_i < 10 && l_i < m_Files.size(); l_i++)
     {
-      m_Files[t_I].PrintSelf();
+      m_Files[l_i].PrintSelf();
     }
 
     std::cout << "*********************************************************************" << std::endl;
 
-    t_F.close();
+    l_file.close();
 
-    t_F.open("hash_codes.csv");
+    l_file.open("hash_codes.csv");
 
-    for(unsigned int t_I = 0; t_I < m_Files.size(); t_I++)
+    for(unsigned int l_i = 0; l_i < m_Files.size(); l_i++)
     {
-      std::ifstream t_MovieFile;
-      t_MovieFile.open(m_Files[t_I].GetPath().c_str(),std::ios::in | std::ios::binary | std::ios::ate);
+      std::ifstream l_movie_file;
+      l_movie_file.open(m_Files[l_i].GetPath().c_str(),std::ios::in | std::ios::binary | std::ios::ate);
 
-      t_F << m_Files[t_I].GetPath() << "," << compute_hash(t_MovieFile) << std::endl;
+      l_file << m_Files[l_i].GetPath() << "," << compute_hash(l_movie_file) << std::endl;
 
-      t_MovieFile.close();
+      l_movie_file.close();
     }
 
-    t_F.close();
+    l_file.close();
   }
 
 }

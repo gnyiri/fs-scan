@@ -15,10 +15,9 @@
 
 namespace fsscan
 {
-
   void log(std::string p_Log);
   std::string getFileExtension(std::string p_FileName);
-  bool fileCompare(File t_A,File t_B);
+  bool fileCompare(File& p_a, File& p_b);
   unsigned long compute_hash(std::ifstream &f);
 }
 
