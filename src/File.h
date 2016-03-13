@@ -13,25 +13,25 @@
 namespace fsscan
 {
 
-class File: public BaseNode
-{
-public:
-  File();
-  virtual ~File();
+  class File: public BaseNode
+  {
+  public:
+    File();
+    virtual ~File();
 
-  void SetSize(unsigned long p_Size);
-  unsigned long GetSize() const;
-  
-  void SetExtension(std::string p_Extension);
-  std::string GetExtension() const;
+    void SetSize(unsigned long p_Size);
+    unsigned long GetSize() const;
 
-  void PrintSelf();
+    void SetExtension(std::string p_Extension);
+    std::string GetExtension() const;
 
-protected:
-  std::string m_BaseName;
-  std::string m_Extension;
-  unsigned long m_Size;
-};
+    void PrintSelf();
+
+  protected:
+    std::string m_BaseName;
+    std::string m_Extension;
+    unsigned long m_Size;
+  };
 
 }
 #endif /* FILE_H_ */

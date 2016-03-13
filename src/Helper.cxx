@@ -8,7 +8,7 @@
 #include "Helper.h"
 #include <time.h>
 #include <iostream>
-#include <fstream> 
+#include <fstream>
 
 namespace fsscan
 {
@@ -34,13 +34,15 @@ namespace fsscan
   //------------------------------------------------------------------------
   int MAX(int x, int y)
   {
-    if ((x) > (y))
+    if((x) > (y)) {
       return x;
-    else
+    }
+    else {
       return y;
+    }
   }
   //------------------------------------------------------------------------
-  unsigned long compute_hash(std::ifstream& f)
+  unsigned long compute_hash(std::ifstream &f)
   {
     unsigned long hash, fsize;
 
@@ -49,11 +51,11 @@ namespace fsscan
     f.seekg(0, std::ios::beg);
 
     hash = fsize;
-    for (unsigned long tmp = 0, i = 0; i < 65536 / sizeof (tmp) && f.read((char*) &tmp, sizeof (tmp)); i++, hash += tmp);
+    for(unsigned long tmp = 0, i = 0; i < 65536 / sizeof(tmp) && f.read((char*) &tmp, sizeof(tmp)); i++, hash += tmp);
 
     f.seekg(MAX(0, (unsigned long) fsize - 65536), std::ios::beg);
 
-    for (unsigned long tmp = 0, i = 0; i < 65536 / sizeof (tmp) && f.read((char*) &tmp, sizeof (tmp)); i++, hash += tmp);
+    for(unsigned long tmp = 0, i = 0; i < 65536 / sizeof(tmp) && f.read((char*) &tmp, sizeof(tmp)); i++, hash += tmp);
 
     return hash;
   }

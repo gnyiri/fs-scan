@@ -15,23 +15,23 @@
 namespace fsscan
 {
 
-class Logger
-{
-public:
-  static Logger* GetInstance();
-  
-  void Print(std::string p_Msg);
+  class Logger
+  {
+  public:
+    static Logger* GetInstance();
 
-private:
+    void Print(std::string p_Msg);
 
-  Logger();
-  ~Logger();
-  
-  int OpenFile(std::string p_FileName);
-  static Logger* m_Instance;
+  private:
 
-  std::ofstream m_LogFile;
-};
+    Logger();
+    ~Logger();
+
+    int OpenFile(std::string p_FileName);
+    static Logger* m_Instance;
+
+    std::ofstream m_LogFile;
+  };
 
 } /* namespace dirscan */
 #endif /* LOGGER_H_ */

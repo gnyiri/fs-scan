@@ -14,29 +14,29 @@
 namespace fsscan
 {
 
-class BaseClass
-{
-  enum ErrorType
+  class BaseClass
   {
-    ERROR_OK = 0,
-    ERROR_BAD_INPUT,
-    ERROR_BAD_ALLOC,
-    ERROR_IO,
-    ERROR_GENERAL
+    enum ErrorType
+    {
+      ERROR_OK = 0,
+      ERROR_BAD_INPUT,
+      ERROR_BAD_ALLOC,
+      ERROR_IO,
+      ERROR_GENERAL
+    };
+  public:
+    BaseClass();
+    virtual ~BaseClass();
+
+    static std::string GetErrorString(ErrorType p_Error);
+
+    void Log(const std::string p_Msg) const;
+
+  private:
+    ErrorType m_Error;
+    Logger* m_Logger;
+
   };
-public:
-  BaseClass();
-  virtual ~BaseClass();
-
-  static std::string GetErrorString(ErrorType p_Error);
-
-  void Log(const std::string p_Msg) const;
-
-private:
-  ErrorType m_Error;
-  Logger* m_Logger;
-
-};
 
 } /* namespace dirscan */
 #endif /* BASECLASS_H_ */
